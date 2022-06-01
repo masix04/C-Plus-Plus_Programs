@@ -8,11 +8,11 @@ using namespace std;
 class Solution {
     private: map<char, int> romanIntegerConversion;
     private: string romanSymbol;
-    private: string integerSymbol;
+    private: int integerValue;
 
     public:
         int romanToInt(string s) {
-
+			
             // Step-1: Separate each character form string
             // I- FIND Length of that string
             int lengthCount = 0;
@@ -22,14 +22,66 @@ class Solution {
 			}
 			cout<<"length of Roman String: "<<lengthCount<<endl;
 
+			/* SET Array of input Roman Symbols */
+			char RomanSymbolsArray[lengthCount];
+			for(int i=0;i<lengthCount;i++) {
+				RomanSymbolsArray[i] = s[i];
+			}
+			/* Showing Array of Inout Roman Symbols */
+			for(int i=0;i<lengthCount;i++) {
+				cout<<RomanSymbolsArray[i]<<" - ";
+			}cout<<endl;
+			
+			int VIndex; /* Will hold V roman sybmol Index */
+			char nextSymbol, previousSymbol, currentSymbol;
+			for(int i=0; i<lengthCount; i++) {
+				/* STEP 3 - Verify Conventions by telling Program what Are Conventions/Rules that should follow */	
+				if(RomanSymbolsArray[i] == 'V') {
+					VIndex = i;
+					if(VIndex != 0) {
+						previousSymbol = RomanSymbolsArray[i-1];
+						nextSymbol = RomanSymbolsArray[i+1];
+						cout<<"----------\nprevious: "<<previousSymbol<<endl;
+						cout<<"next: "<<nextSymbol<<"\n------------"<<endl;
+						if(nextSymbol == 'I') {
+							if(previousSymbol != 'I') {
+								
+							}
+							else if(previousSymbol == 'I') {
+								cout<<" * WRONG ROMAN Counting Entered. *"<<endl;
+								break;
+							}
+						}
+					}
+				}
+			}
+			cout<<"program End!_____"<<endl;
+			
 			int convertedIntegerCharacters[lengthCount]; /* Array to store Converted romans*/
 
 			/* Find what Each Character Means */
 
 			map<char, int>::iterator itr;
-			
+
 			/* set Basic Conversions */
 			setRomanIntegerBaseConversion();
+
+		
+//			int mapCount=0;
+//			int RomanSymbolsArray[lengthCount];
+//			for(itr = romanIntegerConversion.begin(); itr != romanIntegerConversion.end(); ++itr) {
+//
+//				romanSymbolsArray[mapCount] = itr->first;
+//				/* STEP 3 - Verify Conventions by telling Program what Are Conventions/Rules that should follow */	
+//				if(itr->first == 'V') {
+//					VIndex = mapCount;
+//					if(VIndex != 0) {
+//						cout<<"----------\nprevious: "<<itr.prev()<<endl;
+//						cout<<"next: "<<std::next(itr)<<"\n------------"<<endl;
+//					}
+//				}
+//				mapCount++;
+//			}
 			
 			for(int i=0; i<lengthCount; i++) {
 //				gatherCharcterAsString[i] = s[i];
@@ -43,17 +95,20 @@ class Solution {
 					}
 				}
 			}
+			
+			
+			integerValue = 0;
 			for(int j=0;j<lengthCount; j++) {	
 				cout<<"Converted Integers: "<<convertedIntegerCharacters[j]<<endl;
+				integerValue += convertedIntegerCharacters[j];
+//				case 
 			}
+			
+			
+			
 
 			
-			
-			
-			
-
-			
-            return 2;
+            return integerValue;
         }
     public: 
         void setRomanIntegerBaseConversion() {
